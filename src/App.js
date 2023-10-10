@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Form from "./components/Form";
+import Table from "./components/Table";
+import { ChakraProvider } from "@chakra-ui/react";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import Create from "./components/Create";
+import Edit from "./components/Edit";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <ChakraProvider>
+        <Routes>
+          <Route path="/" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/table" element={<Table />} />
+          <Route path="/form" element={<Form />} />
+          <Route path="/create" element={<Create />} />
+          <Route path="/edit/:id" element={<Edit />} />
+        </Routes>
+      </ChakraProvider>
+    </BrowserRouter>
   );
 }
 
 export default App;
+
+//<Navigate to="/form" />
