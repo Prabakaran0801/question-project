@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from "react";
 import { getDocs, collection, deleteDoc, doc } from "firebase/firestore";
-import { db } from "../config/Firebase";
+import { db } from "../../config/Firebase";
 import {
   Table,
   Thead,

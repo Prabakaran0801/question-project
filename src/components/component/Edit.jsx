@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Form from "./Form";
 import { useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "../config/Firebase";
+import { db } from "../../config/Firebase";
 
 const Edit = () => {
   const [loading, setLoading] = useState(false);
@@ -32,7 +32,7 @@ const Edit = () => {
 
   useEffect(() => {
     fetch();
-  }, []);
+  });
 
   if (loading) return <div>Loading...</div>;
 
