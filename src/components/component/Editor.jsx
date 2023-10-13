@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   EditorState,
   //   ContentState,
@@ -7,6 +7,7 @@ import {
 } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { initializeApp } from "firebase/app";
 
 const MyEditor = () => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -44,3 +45,32 @@ const MyEditor = () => {
 };
 
 export default MyEditor;
+
+//  const { id } = useParams();
+
+//  useEffect(() => {
+//    const getquestionList = async () => {
+//      try {
+//        const data = await getDocs(questionCollectionRef);
+//        const filteredData = data.docs.map((doc) => ({
+//          ...doc.data(),
+//          id: doc.id,
+//        }));
+//        setquestionList(filteredData);
+//      } catch (err) {
+//        console.log(err);
+//      }
+//    };
+//    getquestionList();
+//  }, [id]);
+
+//  useEffect(() => {
+//    if (id) {
+//      initialize({ ...data[id] });
+//    } else {
+//      initialize({ ...initialState });
+//    }
+//    return () => {
+//      initialize({ ...initialState });
+//    };
+//  }, [id, data]);

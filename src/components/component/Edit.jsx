@@ -32,7 +32,7 @@ const Edit = () => {
 
   useEffect(() => {
     fetch();
-  });
+  }, []);
 
   if (loading) return <div>Loading...</div>;
 

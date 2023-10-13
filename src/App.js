@@ -12,11 +12,11 @@ function App() {
     <BrowserRouter>
       <ChakraProvider>
         <Routes>
-          {/* <Route path="/" element={<Register />} />
+          <Route path="/" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/create" element={<Create />} />
           <Route path="/table" element={<Table />} />
           <Route path="/edit/:id" element={<Edit />} />
-          <Route path="/create" element={<Create />} /> */}
           <Route path="/form" element={<Form />} />
         </Routes>
       </ChakraProvider>

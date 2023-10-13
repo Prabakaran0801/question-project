@@ -1,4 +1,5 @@
-import { React, useState } from "react";
+import { React, useState, useRef } from "react";
+import JoditEditor from "jodit-pro-react";
 import { Switch, useColorMode, useColorModeValue } from "@chakra-ui/react";
 import {
   Box,
@@ -22,15 +23,30 @@ import { languageOptions } from "../component/OptionsGroup";
 import MyEditor from "./Editor";
 
 const Form = ({ initialState }) => {
-  //debugger;
   // New question state
-  const [newType, setNewType] = useState();
-  const [newQuestion, setNewQuestion] = useState();
-  const [newAnswer, setNewAnswer] = useState();
-  const [newCategory, setNewCategory] = useState();
-  const [newTags, setNewTags] = useState();
+  const [newType, setNewType] = useState(initialState.type);
+  const [newQuestion, setNewQuestion] = useState(initialState.question);
+  const [newAnswer, setNewAnswer] = useState(initialState.answer);
+  const [newCategory, setNewCategory] = useState(initialState.catagory);
+  const [newTags, setNewTags] = useState(initialState.tags);
+  // console.log(initialState.type);
+  // console.log(initialState.question);
+  // console.log(initialState.answer);
+  // console.log(initialState.catagory);
+  // console.log(initialState.tags);
 
+  // console.log(newType);
+  // console.log(setNewType);
   // console.log(languageOptions);
+
+  // editor component function
+  const editor = useRef(null);
+  console.log(newQuestion);
+  console.log(newAnswer);
+
+  const config = {
+    readonly: false,
+  };
 
   // Select Category function
   const categoryHandleChange = (event) => {
@@ -106,7 +122,7 @@ const Form = ({ initialState }) => {
       {/* {fetchData.map((data) => ( */}
       <FormControl as="fieldset">
         <FormLabel as="legend">1. Question Type</FormLabel>
-        <RadioGroup defaultValue={newType} onChange={setNewType}>
+        <RadioGroup value={initialState.type} onChange={setNewType}>
           <HStack spacing="24px">
             <Radio value="mcq">MCQ</Radio>
             <Radio value="qa">QA</Radio>
@@ -114,11 +130,25 @@ const Form = ({ initialState }) => {
         </RadioGroup>
         <FormLabel as="legend">2. Question Title</FormLabel>
 
-        <MyEditor defaultValue={newQuestion} onChange={setNewQuestion} />
+        {/* <MyEditor value={initialState.question} /> */}
+        <JoditEditor
+          ref={editor}
+          value={initialState.question}
+          config={config}
+          tabIndex={1}
+          onBlur={(newContent) => setNewQuestion(newContent)}
+        />
 
         <FormLabel as="legend">3. Question Answer</FormLabel>
 
-        <MyEditor defaultValue={newAnswer} onChange={setNewAnswer} />
+        {/* <MyEditor value={initialState.answer} /> */}
+        <JoditEditor
+          ref={editor}
+          value={initialState.answer}
+          config={config}
+          tabIndex={1}
+          onBlur={(newContent) => setNewAnswer(newContent)}
+        />
 
         <FormLabel as="legend">4. Category</FormLabel>
         {/* <Select
@@ -159,6 +189,7 @@ const Form = ({ initialState }) => {
           onChange={handleSelect}
           isSearchable={true}
           isMulti
+          value={initialState.tags}
         />
 
         <Button mt="5" colorScheme="blue" onClick={onSubmitQuestion}>
