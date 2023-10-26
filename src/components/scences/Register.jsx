@@ -24,8 +24,6 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  // console.log(auth?.currentUser?.email);
-
   // Navigate Route
   const navigate = useNavigate();
 

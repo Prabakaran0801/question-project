@@ -1,4 +1,4 @@
-import { React, useState, useRef } from "react";
+import React from "react";
 import JoditEditor from "jodit-pro-react";
 import { Switch, useColorMode, useColorModeValue } from "@chakra-ui/react";
 import {
@@ -12,67 +12,24 @@ import {
 } from "@chakra-ui/react";
 import { signOut } from "firebase/auth";
 import { auth } from "../../config/Firebase";
-// import { Editor } from "react-draft-wysiwyg";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-// import { Select } from "@chakra-ui/react";
 import Select from "react-select";
 import { db } from "../../config/Firebase";
 import { collection, addDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
-import { languageOptions } from "../component/OptionsGroup";
-import MyEditor from "./Editor";
+import { languageOptions } from "./OptionsGroup";
 
-const Form = ({ initialState }) => {
-  // New question state
-  const [newType, setNewType] = useState(initialState.type);
-  const [newQuestion, setNewQuestion] = useState(initialState.question);
-  const [newAnswer, setNewAnswer] = useState(initialState.answer);
-  const [newCategory, setNewCategory] = useState(initialState.catagory);
-  const [newTags, setNewTags] = useState(initialState.tags);
-  // console.log(initialState.type);
-  // console.log(initialState.question);
-  // console.log(initialState.answer);
-  // console.log(initialState.catagory);
-  // console.log(initialState.tags);
-
-  // console.log(newType);
-  // console.log(setNewType);
-  // console.log(languageOptions);
-
-  // editor component function
-  const editor = useRef(null);
-  console.log(newQuestion);
-  console.log(newAnswer);
-
-  const config = {
-    readonly: false,
-  };
-
-  // Select Category function
-  const categoryHandleChange = (event) => {
-    setNewCategory(event.value);
-  };
-
-  // Select Tags Function
-
-  function handleSelect(data) {
-    const objTOArr = data.map((item) => {
-      return item["value"];
-    });
-    setNewTags(objTOArr);
-  }
-
+const Form = ({ initialState, onChange }) => {
   // Add document
   const questionCollectionRef = collection(db, "questions");
 
   const onSubmitQuestion = async () => {
     try {
       await addDoc(questionCollectionRef, {
-        type: newType,
-        category: newCategory,
-        tags: newTags,
-        question: newQuestion,
-        answer: newAnswer,
+        type: initialState.type,
+        category: initialState.category,
+        tags: initialState.tags,
+        question: initialState.question,
+        answer: initialState.answer,
       });
     } catch (err) {
       console.log(err);
@@ -119,10 +76,13 @@ const Form = ({ initialState }) => {
           onChange={toggleColorMode}
         />
       </FormControl>
-      {/* {fetchData.map((data) => ( */}
+
       <FormControl as="fieldset">
         <FormLabel as="legend">1. Question Type</FormLabel>
-        <RadioGroup value={initialState.type} onChange={setNewType}>
+        <RadioGroup
+          value={initialState.type}
+          onChange={(value) => onChange("type", value)}
+        >
           <HStack spacing="24px">
             <Radio value="mcq">MCQ</Radio>
             <Radio value="qa">QA</Radio>
@@ -130,66 +90,61 @@ const Form = ({ initialState }) => {
         </RadioGroup>
         <FormLabel as="legend">2. Question Title</FormLabel>
 
-        {/* <MyEditor value={initialState.question} /> */}
         <JoditEditor
-          ref={editor}
-          value={initialState.question}
-          config={config}
-          tabIndex={1}
-          onBlur={(newContent) => setNewQuestion(newContent)}
+          value={initialState.question} // Assuming question is a string
+          onChange={(newContent) => onChange("question", newContent)} // Update the question in your state
+          onBlur={(newContent) => onChange("question", newContent)} // Update the question in your state
         />
 
         <FormLabel as="legend">3. Question Answer</FormLabel>
 
-        {/* <MyEditor value={initialState.answer} /> */}
         <JoditEditor
-          ref={editor}
-          value={initialState.answer}
-          config={config}
-          tabIndex={1}
-          onBlur={(newContent) => setNewAnswer(newContent)}
+          value={initialState.answer} // Assuming answer is a string
+          onChange={(newContent) => onChange("answer", newContent)} // Update the answer in your state
+          onBlur={(newContent) => onChange("answer", newContent)} // Update the answer in your state
         />
 
         <FormLabel as="legend">4. Category</FormLabel>
-        {/* <Select
-          placeholder="Select option"
-          onChange={(e) => setNewCategory(e.target.value)}
-        >
-          <option value="javascript">JavaScript</option>
-          <option value="python">Python</option>
-          <option value="c++">C++</option>
-          <option value="java">Java</option>
-        </Select> */}
+
         <Select
-          defaultValue={newCategory}
           name="language"
           options={languageOptions}
           className="basic-multi-select"
           classNamePrefix="select"
-          onChange={categoryHandleChange}
-          value={languageOptions.find((obj) => obj.value === newCategory)} // set selected value
+          onChange={(selectedOption) => {
+            const newValue = selectedOption ? selectedOption.value : null;
+            onChange("category", newValue);
+          }}
+          value={
+            initialState.category
+              ? languageOptions.find(
+                  (obj) => obj.value === initialState.category
+                )
+              : null
+          }
         />
 
         <FormLabel as="legend">5. Tags</FormLabel>
-        {/* <Select
-          placeholder="Select option"
-          onChange={(e) => setNewTags(e.target.value)}
-        >
-          <option value="javascript">JavaScript</option>
-          <option value="python">Python</option>
-          <option value="c++">C++</option>
-          <option value="java">Java</option>
-        </Select> */}
 
         <Select
           mb="auto"
           options={languageOptions}
           placeholder="Select language"
-          // value={tag}
-          onChange={handleSelect}
+          onChange={(selectedOptions) => {
+            const newValues = selectedOptions
+              ? selectedOptions.map((option) => option.value)
+              : [];
+            onChange("tags", newValues);
+          }}
           isSearchable={true}
           isMulti
-          value={initialState.tags}
+          value={
+            initialState.tags
+              ? languageOptions.filter((obj) =>
+                  initialState.tags.includes(obj.value)
+                )
+              : null
+          }
         />
 
         <Button mt="5" colorScheme="blue" onClick={onSubmitQuestion}>
@@ -205,12 +160,7 @@ const Form = ({ initialState }) => {
         >
           Go to Table
         </Button>
-
-        {/* <Button colorScheme="red" onClick={() => passData(data.id)}>
-          update
-        </Button> */}
       </FormControl>
-      {/* ))} */}
     </Box>
   );
 };

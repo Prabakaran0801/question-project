@@ -8,8 +8,10 @@ const Edit = () => {
   const [loading, setLoading] = useState(false);
   const [initialState, setInitialState] = useState({});
   const { id } = useParams();
-  // FETCH DATA
-  // const [fetchData, setfetchData] = useState([]);
+
+  const onChange = (field, data) => {
+    setInitialState((prev) => ({ ...prev, [field]: data }));
+  };
 
   const fetch = async () => {
     const docRef = doc(db, "questions", id);
@@ -38,7 +40,7 @@ const Edit = () => {
 
   return (
     <div>
-      <Form initialState={initialState} />
+      <Form initialState={initialState} onChange={onChange} />
     </div>
   );
 };

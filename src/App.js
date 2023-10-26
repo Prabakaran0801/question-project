@@ -17,7 +17,7 @@ function App() {
           <Route path="/create" element={<Create />} />
           <Route path="/table" element={<Table />} />
           <Route path="/edit/:id" element={<Edit />} />
-          <Route path="/form" element={<Form />} />
+          {/* <Route path="/form" element={<Form />} /> */}
         </Routes>
       </ChakraProvider>
     </BrowserRouter>
