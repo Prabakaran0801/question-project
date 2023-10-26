@@ -46,6 +46,15 @@ const QuestionTable = () => {
 
   return (
     <div>
+      <Button
+        mt="5"
+        colorScheme="blue"
+        onClick={() => {
+          navigate("/create");
+        }}
+      >
+        Create
+      </Button>
       <TableContainer m={20}>
         <Table variant="simple">
           <Thead>

@@ -1,5 +1,4 @@
 import React from "react";
-import JoditEditor from "jodit-pro-react";
 import { Switch, useColorMode, useColorModeValue } from "@chakra-ui/react";
 import {
   Box,
@@ -17,6 +16,7 @@ import { db } from "../../config/Firebase";
 import { collection, addDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import { languageOptions } from "./OptionsGroup";
+import MyEditor from "./Editor";
 
 const Form = ({ initialState, onChange }) => {
   // Add document
@@ -90,22 +90,19 @@ const Form = ({ initialState, onChange }) => {
         </RadioGroup>
         <FormLabel as="legend">2. Question Title</FormLabel>
 
-        <JoditEditor
-          value={initialState.question} // Assuming question is a string
-          onChange={(newContent) => onChange("question", newContent)} // Update the question in your state
-          onBlur={(newContent) => onChange("question", newContent)} // Update the question in your state
+        <MyEditor
+          value={initialState.question}
+          onChange={onChange}
+          fieldName={"question"}
         />
-
         <FormLabel as="legend">3. Question Answer</FormLabel>
 
-        <JoditEditor
-          value={initialState.answer} // Assuming answer is a string
-          onChange={(newContent) => onChange("answer", newContent)} // Update the answer in your state
-          onBlur={(newContent) => onChange("answer", newContent)} // Update the answer in your state
+        <MyEditor
+          value={initialState.answer}
+          onChange={onChange}
+          fieldName={"answer"}
         />
-
         <FormLabel as="legend">4. Category</FormLabel>
-
         <Select
           name="language"
           options={languageOptions}
@@ -123,9 +120,7 @@ const Form = ({ initialState, onChange }) => {
               : null
           }
         />
-
         <FormLabel as="legend">5. Tags</FormLabel>
-
         <Select
           mb="auto"
           options={languageOptions}
