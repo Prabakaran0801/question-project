@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from "react";
 import { getDocs, collection, deleteDoc, doc } from "firebase/firestore";
-import { db } from "../../config/Firebase";
+import { db } from "../config/Firebase";
 import {
   Table,
   Thead,
@@ -46,16 +46,16 @@ const QuestionTable = () => {
 
   return (
     <div>
-      <Button
-        mt="5"
-        colorScheme="blue"
-        onClick={() => {
-          navigate("/create");
-        }}
-      >
-        Create
-      </Button>
       <TableContainer m={20}>
+        <Button
+          m="5"
+          colorScheme="blue"
+          onClick={() => {
+            navigate("/create");
+          }}
+        >
+          Create
+        </Button>
         <Table variant="simple">
           <Thead>
             <Tr>
@@ -98,14 +98,16 @@ const QuestionTable = () => {
             ))}
           </Tbody>
         </Table>
+        <Button
+          m="5"
+          float="left"
+          onClick={() => {
+            navigate("/form");
+          }}
+        >
+          Back
+        </Button>
       </TableContainer>
-      <Button
-        onClick={() => {
-          navigate("/form");
-        }}
-      >
-        Back
-      </Button>
     </div>
   );
 };

@@ -10,13 +10,13 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { signOut } from "firebase/auth";
-import { auth } from "../../config/Firebase";
+import { auth } from "../config/Firebase";
 import Select from "react-select";
-import { db } from "../../config/Firebase";
+import { db } from "../config/Firebase";
 import { collection, addDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
-import { languageOptions } from "./OptionsGroup";
-import MyEditor from "./Editor";
+import { languageOptions } from "../components/OptionsGroup";
+import MyEditor from "../components/Editor";
 
 const Form = ({ initialState, onChange }) => {
   // Add document
@@ -55,7 +55,7 @@ const Form = ({ initialState, onChange }) => {
   const formBackground = useColorModeValue("gray.100", "gray.700");
 
   return (
-    <Box m="14" bg={formBackground}>
+    <Box m="14" bg={formBackground} px="24" py="5" borderRadius="20">
       <FormControl
         m="auto"
         display="flex"

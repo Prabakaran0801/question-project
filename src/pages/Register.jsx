@@ -10,7 +10,7 @@ import {
   useColorMode,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { auth, googleProvider } from "../../config/Firebase";
+import { auth, googleProvider } from "../config/Firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithPopup,

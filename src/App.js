@@ -1,11 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Form from "./components/component/Form";
-import Table from "./components/component/Table";
+// import Form from "./pages/Form";
+import Table from "./pages/Table";
 import { ChakraProvider } from "@chakra-ui/react";
-import Login from "./components/scences/Login";
-import Register from "./components/scences/Register";
-import Create from "./components/component/Create";
-import Edit from "./components/component/Edit";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Create from "./pages/Create";
+import Edit from "./pages/Edit";
 
 function App() {
   return (
