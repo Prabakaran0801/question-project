@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Form from "./Form";
+import Sidebar from "../components/Sidebar";
 
 const Create = () => {
   const [initialState, setInitialState] = useState({});
@@ -8,7 +9,13 @@ const Create = () => {
     setInitialState((prev) => ({ ...prev, [field]: data }));
   };
 
-  return <Form initialState={initialState} onChange={onChange} />;
+  return (
+    <>
+      <div>
+        <Form a initialState={initialState} onChange={onChange} />;
+      </div>
+    </>
+  );
 };
 
 export default Create;

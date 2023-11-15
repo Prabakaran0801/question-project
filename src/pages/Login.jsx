@@ -14,6 +14,7 @@ import { auth, googleProvider } from "../config/Firebase";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 
 import { useNavigate } from "react-router-dom";
+import Sidebar from "../components/Sidebar";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -55,57 +56,66 @@ const Login = () => {
   const formBackground = useColorModeValue("gray.100", "gray.700");
 
   return (
-    <Flex h="100vh" alignItems="center" justifyContent="center">
-      <Flex
-        flexDirection="column"
-        bg={formBackground}
-        p={12}
-        borderRadius={8}
-        boxShadow="lg"
-      >
-        <Heading mb={6} ml={10}>
-          Log In
-        </Heading>
-        <Input
-          placeholder="your@gmail.com"
-          type="email"
-          variant="filled"
-          mb={3}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <Input
-          placeholder="**********"
-          type="password"
-          variant="filled"
-          mb={6}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <Button colorScheme="teal" mb={4} onClick={loginEmail}>
-          Login
-        </Button>
-
-        <Button mb={4} onClick={loginGoogle}>
-          SignUpwithgoogle
-        </Button>
-
-        {/* <Button mx={8} colorScheme="red" onClick={logOut}>
-          Logout
-        </Button> */}
-
-        <FormControl display="flex" alignItems="center">
-          <FormLabel htmlFor="dark_mode" mt="4" mb="0">
-            Enable Dark Mode?
-          </FormLabel>
-          <Switch
-            mt="4"
-            id="dark_mode"
-            colorScheme="teal"
-            size="lg"
-            onChange={toggleColorMode}
+    <>
+      <Sidebar />
+      <Flex h="100vh" alignItems="center" justifyContent="center">
+        <Flex
+          flexDirection="column"
+          bg={formBackground}
+          p={12}
+          borderRadius={8}
+          boxShadow="lg"
+        >
+          <Heading mb={6} ml={10}>
+            Log In
+          </Heading>
+          <Input
+            placeholder="your@gmail.com"
+            type="email"
+            variant="filled"
+            mb={3}
+            onChange={(e) => setEmail(e.target.value)}
           />
-        </FormControl>
+          <Input
+            placeholder="**********"
+            type="password"
+            variant="filled"
+            mb={6}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <Button colorScheme="teal" mb={4} onClick={loginEmail}>
+            Login
+          </Button>
+
+          <Button mb={4} colorScheme="red" onClick={loginGoogle}>
+            SignUpwithgoogle
+          </Button>
+
+          <Button
+            mx={8}
+            colorScheme="blue"
+            onClick={() => {
+              navigate("/register");
+            }}
+          >
+            Register
+          </Button>
+
+          <FormControl display="flex" alignItems="center">
+            <FormLabel htmlFor="dark_mode" mt="4" mb="0">
+              Enable Dark Mode?
+            </FormLabel>
+            <Switch
+              mt="4"
+              id="dark_mode"
+              colorScheme="teal"
+              size="lg"
+              onChange={toggleColorMode}
+            />
+          </FormControl>
+        </Flex>
       </Flex>
-    </Flex>
+    </>
   );
 };
 

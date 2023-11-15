@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Form from "./Form";
 import { useParams } from "react-router-dom";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../config/Firebase";
 
 const Edit = () => {
@@ -36,11 +36,40 @@ const Edit = () => {
     fetch();
   }, []);
 
-  if (loading) return <div>Loading...</div>;
+  // if (loading) return <div>Loading...</div>;
+
+  const updateFields = {
+    type: initialState.type,
+    category: initialState.category,
+    tags: initialState.tags,
+    question: initialState.question,
+    answer: initialState.answer,
+  };
+
+  const onSubmit = () => {
+    const docRef = doc(db, "questions", id);
+    updateDoc(docRef, updateFields)
+      .then((docRef) => {
+        setLoading(false);
+        console.log(docRef, "Data successfuly updated");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    setLoading(true);
+  };
 
   return (
     <div>
-      <Form initialState={initialState} onChange={onChange} />
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        <Form
+          initialState={initialState}
+          onChange={onChange}
+          onSubmit={onSubmit}
+        />
+      )}
     </div>
   );
 };
