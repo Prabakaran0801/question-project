@@ -11,15 +11,6 @@ import {
   DrawerContent,
   useDisclosure,
 } from "@chakra-ui/react";
-import {
-  FiHome,
-  FiTrendingUp,
-  FiCompass,
-  FiStar,
-  FiSettings,
-  FiMenu,
-} from "react-icons/fi";
-import { IconType } from "react-icons";
 import { Link } from "react-router-dom";
 
 const Sidebar = () => {
@@ -67,7 +58,16 @@ const SidebarContent = ({ onClose, ...rest }) => {
       </Flex>
 
       <NavItem>
+        <Link to="/questions"> Question </Link>
+      </NavItem>
+      <NavItem>
+        <Link to="/table"> Answere </Link>
+      </NavItem>
+      <NavItem>
         <Link to="/table"> Category </Link>
+      </NavItem>
+      <NavItem>
+        <Link to="/table"> Tags </Link>
       </NavItem>
     </Box>
   );
@@ -116,12 +116,7 @@ const MobileNav = ({ onOpen, ...rest }) => {
       justifyContent="flex-start"
       {...rest}
     >
-      <IconButton
-        variant="outline"
-        onClick={onOpen}
-        aria-label="open menu"
-        icon={<FiMenu />}
-      />
+      <IconButton variant="outline" onClick={onOpen} aria-label="open menu" />
       <Text fontSize="2xl" ml="8" fontFamily="monospace" fontWeight="bold">
         Logo
       </Text>

@@ -14,7 +14,6 @@ import { auth, googleProvider } from "../config/Firebase";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 
 import { useNavigate } from "react-router-dom";
-import Sidebar from "../components/Sidebar";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -32,7 +31,7 @@ const Login = () => {
   const loginGoogle = async () => {
     try {
       await signInWithPopup(auth, googleProvider);
-      navigate("/table");
+      navigate("/home");
     } catch (err) {
       console.log(err);
     }
@@ -57,7 +56,6 @@ const Login = () => {
 
   return (
     <>
-      <Sidebar />
       <Flex h="100vh" alignItems="center" justifyContent="center">
         <Flex
           flexDirection="column"

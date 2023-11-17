@@ -95,7 +95,7 @@ const Register = () => {
         <Button mb={4} onClick={registerGoogle}>
           Registerwithgoogle
         </Button>
-        <a href="/login"> Login</a>
+        <a href="/"> Login</a>
         {/* <Button mx={8} colorScheme="red" onClick={logOut}>
           Logout
         </Button> */}

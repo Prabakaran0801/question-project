@@ -16,9 +16,9 @@ import Select from "react-select";
 import { db } from "../config/Firebase";
 import { collection, addDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
-import { languageOptions } from "../components/OptionsGroup";
-import MyEditor from "../components/Editor";
-import Sidebar from "../components/Sidebar";
+import { languageOptions } from "./OptionsGroup";
+import MyEditor from "./Editor";
+import Sidebar from "./Sidebar";
 
 const Form = ({ initialState, onChange, onSubmit }) => {
   // Add document

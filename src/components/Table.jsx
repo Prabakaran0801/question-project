@@ -11,7 +11,9 @@ import {
   TableContainer,
   Badge,
   Button,
+  IconButton,
 } from "@chakra-ui/react";
+import { DeleteIcon } from "@chakra-ui/icons";
 import { Link, useNavigate } from "react-router-dom";
 
 const QuestionTable = () => {
@@ -82,11 +84,12 @@ const QuestionTable = () => {
                 ))}
                 <Td>
                   <Link to={`/edit/${question.id}`}>
-                    <Button colorScheme="blue">Edit</Button>
+                    <IconButton icon={<DeleteIcon />} colorScheme="blue">
+                      Edit
+                    </IconButton>
                   </Link>
                 </Td>
                 <Td>
-                  {" "}
                   <Button
                     colorScheme="red"
                     onClick={() => handleDelete(question.id)}
